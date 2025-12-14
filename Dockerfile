@@ -1,0 +1,1 @@
+echo FROM openjdk:17-slim\n\nWORKDIR /app\n\nCOPY . .\n\nRUN ./gradlew build -x test\n\nEXPOSE 7000\n\nCMD [\"java\", \"-jar\", \"build/libs/app.jar\"] > "D:\repozit\18+\Dockerfile"
