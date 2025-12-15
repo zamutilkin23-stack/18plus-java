@@ -1,1 +1,0 @@
-echo services:\n  - type: web\n    name: 18plus-cards\n    runtime: docker\n    env: production\n    region: frankfurt\n    plan: free > "D:\repozit\18+\render.yaml"
