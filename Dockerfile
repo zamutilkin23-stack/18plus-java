@@ -1,12 +1,14 @@
-FROM openjdk:17-slim
+FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
 COPY . .
 
-# Сделать gradlew исполняемым и собрать проект
+# Убедимся, что gradlew исполняемый
 RUN chmod +x ./gradlew
+
+# Установим зависимости и соберём проект
 RUN ./gradlew build -x test
 
-# Запустить JAR (любой в папке build/libs)
+# Запускаем JAR (любой в build/libs)
 CMD ["sh", "-c", "java -jar build/libs/*.jar"]
