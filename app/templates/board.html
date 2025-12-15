@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>🎲 NightMonopoly</h1>
+<p>Игроки: {{ players|length }}</p>
+<div class="players-list">
+    {% for p in players %}
+    <div class="player-tag">{{ p.name }} ({{ p.orientation }})</div>
+    {% endfor %}
+</div>
+<br>
+<button onclick="drawCard()" class="btn">Бросить кубик</button>
+<div id="card"></div>
+
+<script>
+function drawCard() {
+    fetch('/api/draw-card').then(r => r.json()).then(c => {
+        document.getElementById('card').innerHTML = `
+            <div class="card-draw">
+                ${c.level > 0 ? '<strong>Уровень ' + c.level + '</strong><br><br>' : ''}
+                ${c.text}
+            </div>
+        `;
+    });
+}
+</script>
+{% endblock %}

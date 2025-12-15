@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="center">
+    <h1>🔞 Введите год рождения</h1>
+    <form method="post" action="/check-age">
+        <input name="year" type="number" min="1900" max="2025" placeholder="Например: 2000" required>
+        <button type="submit">Продолжить</button>
+    </form>
+</div>
+{% endblock %}

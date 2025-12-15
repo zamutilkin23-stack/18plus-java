@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>👥 Участники (2–6)</h1>
+<form id="players-form">
+    <div class="player-form" data-id="1">
+        <h3>Игрок 1</h3>
+        <label>Пол: 
+            <select name="gender">
+                <option value="М">М</option>
+                <option value="Ж">Ж</option>
+            </select>
+        </label>
+        <label>Имя: <input name="name" required></label>
+        <label>Ориентация:
+            <input name="orientation" list="orientations" placeholder="Выберите или введите..." value="МЖ">
+        </label>
+    </div>
+</form>
+
+<datalist id="orientations">
+    <option value="М">
+    <option value="Ж">
+    <option value="МЖ">
+    <option value="ММ">
+    <option value="ЖЖ">
+    <option value="МЖМ">
+    <option value="ЖМЖ">
+    <option value="МЖМЖ">
+    <option value="ММЖ">
+    <option value="МЖЖ">
+    <option value="МММ">
+    <option value="ЖЖЖ">
+    <option value="МММЖ">
+    <option value="МММЖЖЖ">
+    <option value="МЖЖЖ">
+    <option value="ММЖЖ">
+    <option value="ММЖЖМЖ">
+</datalist>
+
+<button onclick="addPlayer()" class="btn-small">+ Добавить</button>
+<br><br>
+<button onclick="startGame()" class="btn">🚀 Старт</button>
+
+<script>
+let playerCount = 1;
+function addPlayer() {
+    if (playerCount >= 5) return;
+    playerCount++;
+    const div = document.createElement('div');
+    div.className = 'player-form';
+    div.innerHTML = `
+        <h3>Игрок \${playerCount}</h3>
+        <label>Пол: 
+            <select name="gender">
+                <option value="М">М</option>
+                <option value="Ж">Ж</option>
+            </select>
+        </label>
+        <label>Имя: <input name="name" required></label>
+        <label>Ориентация:
+            <input name="orientation" list="orientations" placeholder="Выберите или введите..." value="МЖ">
+        </label>
+        <button type="button" onclick="removePlayer(this)">Удалить</button>
+    `;
+    document.getElementById('players-form').appendChild(div);
+}
+function removePlayer(btn) {
+    if (playerCount <= 2) return;
+    btn.parentElement.remove();
+    playerCount--;
+}
+function startGame() {
+    const players = [];
+    document.querySelectorAll('.player-form').forEach(f => {
+        const name = f.querySelector('[name=name]').value;
+        const gender = f.querySelector('[name=gender]').value;
+        const orientation = f.querySelector('[name=orientation]').value;
+        if (name) players.push({name, gender, orientation});
+    });
+    if (players.length < 2) {
+        alert('Нужно минимум 2 игрока!');
+        return;
+    }
+    fetch('/api/start-game', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(players)
+    }).then(() => window.location.href = '/board');
+}
+</script>
+{% endblock %}
