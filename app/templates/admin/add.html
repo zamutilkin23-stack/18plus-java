@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>➕ Добавить карточку</h1>
+<form method="post" action="/admin/add">
+    <textarea name="text" placeholder="Текст карточки" required style="width:100%;height:120px;"></textarea><br><br>
+    Уровень:
+    <select name="level">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+    </select><br><br>
+    Ориентация:
+    <input name="orientation" list="orientations" value="любая">
+    <br><br>
+    <button>Добавить</button>
+</form>
+<a href="/admin">← Назад</a>
+
+<datalist id="orientations">
+    <option value="любая">
+    <option value="М">
+    <option value="Ж">
+    <option value="МЖ">
+    <option value="ММ">
+    <option value="ЖЖ">
+    <option value="МЖМ">
+    <option value="ЖМЖ">
+    <option value="МЖМЖ">
+    <option value="ММЖ">
+    <option value="МЖЖ">
+    <option value="МММ">
+    <option value="ЖЖЖ">
+    <option value="МММЖ">
+    <option value="МММЖЖЖ">
+    <option value="МЖЖЖ">
+    <option value="ММЖЖ">
+    <option value="ММЖЖМЖ">
+</datalist>
+{% endblock %}

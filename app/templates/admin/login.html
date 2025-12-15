@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="center">
+    <h1>🔐 Вход в админку</h1>
+    <form method="post" action="/admin/do-login">
+        <input name="user" placeholder="Логин"><br><br>
+        <input name="pass" type="password" placeholder="Пароль"><br><br>
+        <button>Войти</button>
+    </form>
+</div>
+{% endblock %}

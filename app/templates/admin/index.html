@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>🛠️ Админка</h1>
+<a href="/admin/add" class="btn">➕ Добавить карточку</a>
+<hr>
+{% for card in cards %}
+<div class="card-item">
+    {{ card.text }} <small>(уровень: {{ card.level }}, ориентация: {{ card.orientation }})</small>
+    <a href="/admin/delete/{{ card.id }}" style="color:#ff3742">🗑️</a>
+</div>
+{% endfor %}
+{% endblock %}
